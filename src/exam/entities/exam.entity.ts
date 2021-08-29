@@ -1,9 +1,9 @@
-import {Column, Entity, JoinTable, ManyToMany, OneToMany, PrimaryColumn} from "typeorm";
-import {LessonEntity} from "./lesson.entity";
+import {BaseEntity, Column, Entity, JoinTable, ManyToMany, PrimaryColumn, PrimaryGeneratedColumn} from "typeorm";
+import {LessonEntity} from "../../lesson/entities/lesson.entity";
 
 @Entity('exam')
-export class ExamEntity {
-    @PrimaryColumn()
+export class ExamEntity extends BaseEntity {
+    @PrimaryGeneratedColumn()
     id: number;
 
     @Column()
@@ -21,7 +21,7 @@ export class ExamEntity {
     @Column()
     description: string;
 
-    @ManyToMany(() => LessonEntity, {cascade: true})
+    @ManyToMany(() => LessonEntity, (lesson) => lesson.exams, {cascade: true, onDelete: 'CASCADE'})
     @JoinTable()
     lessons: LessonEntity[];
 }

@@ -3,6 +3,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ExamModule } from './exam/exam.module';
+import { QuestionModule } from './question/question.module';
+import { LessonModule } from './lesson/lesson.module';
 
 @Module({
   imports: [
@@ -17,6 +19,8 @@ import { ExamModule } from './exam/exam.module';
       entities: ['dist/**/*.entity{.js,.ts}'],
       synchronize: true,
     }),
+    QuestionModule,
+    LessonModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -3,7 +3,7 @@ import { ExamService } from './exam.service';
 import { CreateExamDto } from './dto/create-exam.dto';
 import { UpdateExamDto } from './dto/update-exam.dto';
 import {CreateLessonDto} from "./dto/create-lesson.dto";
-import {ApiBody} from "@nestjs/swagger";
+import {AddLessonDto} from "./dto/add-lesson.dto";
 
 @Controller('exam')
 export class ExamController {
@@ -14,15 +14,19 @@ export class ExamController {
     return this.examService.create(createExamDto);
   }
 
+  @Post('addLesson')
+  addLesson(@Body() addLessonDto: AddLessonDto) {
+    return this.examService.addLesson(addLessonDto);
+  }
+
   @Get()
   findAll() {
     return this.examService.findAll();
   }
 
-  @Post('lesson')
-  @ApiBody({type: CreateLessonDto})
-  createLesson(@Body() lesson: CreateLessonDto) {
-    return this.examService.createLesson(lesson)
+  @Get(':id')
+  question(@Param('id') id: string){
+    return this.examService.quetions(id);
   }
 
   @Get(':id')
